@@ -18,8 +18,6 @@ const slides = [
 	}
 ]
 
-
-
 /* 슬라이드 넘버 */
 let currentSlideN = 0
 
@@ -56,19 +54,19 @@ function showSlides(slideN) {
 	bannerSlides.style.transform = 'translateX(${-currentSlideN * 100}%' 
 	/* 이미지를 엑스 방향으로 이동시켜줌  */
 
-	const dots = document.querySelectorAll(".dot")
-	for (let i = 0; i < slides.length; i++) {
-		dots[i].classList.remove('dot_selected');
+	const dots = document.querySelectorAll(".dot")/* HTML dot을 모두 선택  */
+	for (let i = 0; i < slides.length; i++) { 
+		dots[i].classList.remove('dot_selected'); /* 닷의 값을 지날때 클라스 dot_selected가 지워지는 코드  */
 	  }
 
-	slideImage.src = slides[currentSlideN].image
+	slideImage.src = slides[currentSlideN].image /* 현재 슬라이드의 이미지 링크와 이미지 주석을 업데이트 해줌  */
 	slideImage.alt = `banner image ${currentSlideN +1}`
-	dots[currentSlideN].classList.add('dot_selected')
+	dots[currentSlideN].classList.add('dot_selected')/* 닷의 현재슬라이드에 있을때 클라스 dot_selected가 추가됨   */
 }
-
+/* 왼쪽버튼 클릭 기능  */
 const arrowLeft = document.querySelector('.arrow_left')
 	arrowLeft.addEventListener('click', prevSlide)
-
+/* 오른쪽 버튼 클릭 기능  */
 const arrowRight = document.querySelector(".arrow_right")
 	arrowRight.addEventListener('click', nextSlide)
 
