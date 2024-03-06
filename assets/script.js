@@ -1,5 +1,4 @@
 //slide data : 
-//Un tableau "slides": contenant une source d'image et un slogan
 const slides = [
 	{
 		"image":"assets/images/slideshow/slide1.jpg",
@@ -19,94 +18,57 @@ const slides = [
 	}
 ]
 
-// HTML Elements :
-const bannerSlides = document.querySelector(".banner-slides");
-//bannerSlides :  le conteneur du diaporama(slideshow) 
-const tagLine = document.getElementById("tagline");
-//tagLine : l'élément où le slogan sera affiché
-const dotsContainer = document.querySelector(".dots")
-//dotsContainer : le conteneur des points(dots) de navigation
 
-let currentIndex = 0;
-// Garde la trace de l'index de la diapositive actuelle
-// keep track of the current slide index
 
-function showSlide(index) {
-// Met à jour le diaporama en fonction de l'index fourni.
-	bannerSlides.style.transform = 'translateX(${-index * 100}%)';
-	// Modifie la propriété 'transform' de 'bannerSlides' pour 
-	// faire glisser vers l'image correspondante
-	tagLine.innerHTML = slides[index].tagLine;
-	// Met à jour le slogan avec le contenu de la diapositive actuelle (current slide)
+/* 슬라이드 넘버 */
+let currentSlideN = 0
 
-	// Met en surbrilliance le point correspondant pour indiquer la diapositive actuelle
-	const dots = dotsContainer.querySelectorAll(".dot");
-	//permet de recupérer tous les éléments HTML qui ont la classe "dot"
-	dots.forEach((dot, i) => {
-		dot.classList.toggle("dot_selected", i === index);
-	});
-	// 'forEach' : itère (repeat) sur chaque élément de la collection 'dots'
-	// et pour chaque élément, elle exécute la fonction fléchée. 
-	// 'dot' est l'élément actuel, 'i' est son index dans la collection
-	//'toggle' : ajouter ou supprimer la classe "dot_selected" à chaque élément 'dot'
-	// 'i === index' : vérifie si l'index de l'élément actuel dans la boucle 'forEach'correspond à l'index 
-	// si oui, la classe 'dot_selected" est ajoutée, sinon elle est supprimée
-}   
+/* 테그 수정하려고 노드한 것 */
+const tagLine = document.getElementById("tagline")
 
-// passe à la diapositive suivante
+/* 이미지 발리지 추가한 것 */
+const slideImage = document.createElement("img")
+let bannerSlides = document.querySelector(".banner-slides")
+bannerSlides.appendChild(slideImage)
+slideImage.src = slides[currentSlideN].image
+slideImage.alt = `banner image ${currentSlideN +1}`
+
+/* 다음 이미지 */
 function nextSlide() {
-	currentIndex = (currentIndex + 1) % slides.length;
-	showSlide(currentIndex);
+	showSlides(currentSlideN + 1 )
 }
-//incrément 'currentIndex' de 1
-//'% slides.length' assure que si 'currentIndex +1' dépasse la longueur du tableau 'slides'
-// il fait revenir au début. 
-// crée un effet de bouclage, le diaporama continue de manière cyclique. 
-
-// Après avoir mis à jour 'currentIndex' appelle la fonction 'showslide' en lui passant le nouvel index en tant qu'argument.
-// 'currentIndex'를 업데이트 한 후 'showslide' 호출하며 업데이트된 인덱스를 인수로 전달함
-
-//passe à la dispositive précédente
+/* 이전 이미지로 돌려주는 코드  */
 function prevSlide() {
-	currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-	showSlide(currentIndex);
+	showSlides(currentSlideN - 1 )
 }
-// décrémente 'currentIndex' de 1
-// '(currentIndex - 1 + slides.length) % slides.length' assure que  'currentIndex - 1' devienrt négatif, 
-// cela reste dans les limites du tableau 'slides.
-// créer un effet de bouclage pour passer à la dernière diapositive lorsque sur la première slide
-
-//Début de slide
-document.addEventListener("DOMContentLoaded", function () {
-// Assure que le script est exécuté une fois que le document HTML est entièrement chargé
-// C'est utile pour s'assurer que le script n'essaie pas de manipuler des élément HTML qui n'existent pas encore.
-
-	slides.forEach((slide,index) => {
-	// Cela répète sur chaque élément du tableau 'slides'
-		const img = document.createElement("img");
-		//Pour chaque élément, il crée une nouvelle balise <img> à l'aide de 'document.createElement("img")'
-		img.classList.add("banner-img", "slide");
-		//Ajoute les calsses "banner-img" et "slide" à cette balise
-		img.src = slide.image;
-		img.alt = 'banner image${index + 1}';
-		//Configure les attributs 'src' et 'alt' de l'image en fonction des propriétés de l'élement 'slide' dans le tableau
-		bannerSlides.appendChild(img);
-		// appendChile : un methode pour ajouter un neoud à la fin de la liste des enfants d'un neoud parant
-		// Dans mon code : signfie que j'ai ajouté l'élément 'img' 
-		//à la fin de la liste des enfants de l'élément avec la calsse 'bannerSlides'
-	});
+/* 보여지는 슬라이드 이미지 */
+function showSlides(slideN) {
+	let i
+	if (slideN > slides.length) {
+		currentSlideN = 0  /* 슬라이드넘버가 3을 넘어가면 슬라이드 넘버를 0으로 돌려주는 기능  */
+	} else if (slideN < 0){
+		currentSlideN = slides.length /* 슬라이드넘버가 0보다 작으면 슬라이드 넘버를 3으로 돌려주는 기능  */
+	} else {
+		currentSlideN = slideN  /* 현재 슬라이드는 슬라이드 넘버와 동일 */
+	}
 	
-	showSlide(currentIndex); 
- 	// Une fois que toutes les images ont été créées et ajoutées, 
-	// cette ligne appelle 'showSlide' pour afficher la diapositive initiale
+	tagLine.innerHTML = slides[currentSlideN].tagLine /* 태그를 해당 슬라이드 넘버에 맞게 수정 해줌 */
+	bannerSlides.style.transform = 'translateX(${-currentSlideN * 100}%' 
+	/* 이미지를 엑스 방향으로 이동시켜줌  */
 
-	const arrowLeft = document.querySelector(".arrow_left");
-	arrowLeft.addEventListener('click', prevSlide);
-	
-	const arrowRight = document.querySelector(".arrow_right");
-	arrowRight.addEventListener('click',nextSlide);
+	const dots = document.querySelectorAll(".dot")
+	for (let i = 0; i < slides.length; i++) {
+		dots[i].classList.remove('dot_selected');
+	  }
 
-	// ajoutent des écouteur d'évenements pour les clics sur les flèches gauche et droit. 
-	// Lorsqu'une flèche est cliqué, la fonction correspondante est appelée pour navigateur dans le diaparama
+	slideImage.src = slides[currentSlideN].image
+	slideImage.alt = `banner image ${currentSlideN +1}`
+	dots[currentSlideN].classList.add('dot_selected')
+}
 
-});
+const arrowLeft = document.querySelector('.arrow_left')
+	arrowLeft.addEventListener('click', prevSlide)
+
+const arrowRight = document.querySelector(".arrow_right")
+	arrowRight.addEventListener('click', nextSlide)
+
