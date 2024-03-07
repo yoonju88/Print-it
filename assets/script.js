@@ -17,7 +17,6 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-
 /* 슬라이드 넘버 0에서 시작*/
 let currentSlideN = 0
 /* 테그 수정하려고 노드한 것 */
@@ -63,8 +62,8 @@ function showSlides(slideN) {
 
 	/* add animatioin fade pour chaque passage de slide*/
 	const addFade = document.querySelectorAll('.banner-slides img')
-	addFade.forEach(addFade => {
-		addFade.classList.add('fade')
+	addFade.forEach(img => {
+		img.classList.add('fade')
 	})
 	
 	dots[currentSlideN].classList.add('dot_selected')/* 닷의 현재슬라이드에 있을때 클라스 dot_selected가 추가됨   */
