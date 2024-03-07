@@ -29,6 +29,12 @@ bannerSlides.appendChild(slideImage)/* j'ajoute <img> sous banner-slides */
 slideImage.src = slides[currentSlideN].image
 slideImage.alt = `banner image ${currentSlideN +1}`
 
+const dots = document.querySelector('.dots')
+for (let i =0; i < slides.length; i++) {
+	const dot = document.createElement('div')
+	dot.className='dot'
+	dots.appendChild(dot)
+}
 /* 다음 이미지 */
 function nextSlide() {
 	showSlides(currentSlideN + 1 )
@@ -39,7 +45,8 @@ function prevSlide() {
 }
 /* 보여지는 슬라이드 이미지 */
 function showSlides(slideN) {
-	if (slideN > slides.length) {
+	
+	if (slideN > slides.length -1) {
 		currentSlideN = 0  /* 슬라이드넘버가 3을 넘어가면 슬라이드 넘버를 0으로 돌려주는 기능  */
 	} else if (slideN < 0){
 		currentSlideN = slides.length /* 슬라이드넘버가 0보다 작으면 슬라이드 넘버를 3으로 돌려주는 기능  */
@@ -47,13 +54,14 @@ function showSlides(slideN) {
 		currentSlideN = slideN  /* 현재 슬라이드는 슬라이드 넘버와 동일 */
 	}
 	
+
 	tagLine.innerHTML = slides[currentSlideN].tagLine /* 태그를 해당 슬라이드 넘버에 맞게 수정 해줌 */
-	bannerSlides.style.transform = 'translateX(${-currentSlideN * 100}%' 
+	bannerSlides.style.transform = `translateX (${-currentSlideN * 100}%`
 	/* 슬라이드가 바뀔때마다 이미지를 수평으로 이동시켜줌 
 	 ex) currentSlideN =2 ${-currentSlideN * 100}% = -200% */
 
-	const dots = document.querySelectorAll(".dot")/* HTML dot을 모두 선택  */
-	for (let i = 0; i < slides.length; i++) { 
+	const dots = document.querySelectorAll(".dot")/* HTML dot을 모두 선택  */ 
+	for (let i = 0; i < dots.length; i++) { 
 		dots[i].classList.remove('dot_selected'); /* 닷의 값을 지날때 클라스 dot_selected가 지워지는 코드  */
 	  }
 
@@ -61,17 +69,18 @@ function showSlides(slideN) {
 	slideImage.alt = `banner image ${currentSlideN +1}`
 
 	/* add animatioin fade pour chaque passage de slide*/
-	const addFade = document.querySelectorAll('.banner-slides img')
-	addFade.forEach(img => {
-		img.classList.add('fade')
-	})
-	
+	const imgs = document.querySelectorAll('.banner-slides img')
+	for (let i = 0; i < imgs.length; i++) { 
+		imgs[i].classList.remove('fade'); /* 닷의 값을 지날때 클라스 dot_selected가 지워지는 코드  */
+	  }
+
+	imgs[currentSlideN].classList.add('fade')
 	dots[currentSlideN].classList.add('dot_selected')/* 닷의 현재슬라이드에 있을때 클라스 dot_selected가 추가됨   */
 }
 /* 왼쪽버튼 클릭 기능  */
 const arrowLeft = document.querySelector('.arrow_left')
-	arrowLeft.addEventListener('click', prevSlide)
+arrowLeft.addEventListener('click', prevSlide)
 /* 오른쪽 버튼 클릭 기능  */
 const arrowRight = document.querySelector(".arrow_right")
-	arrowRight.addEventListener('click', nextSlide)
+arrowRight.addEventListener('click', nextSlide)
 
