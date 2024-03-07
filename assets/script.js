@@ -21,15 +21,9 @@ const slides = [
 let currentSlideN = 0
 /* 테그 수정하려고 노드한 것 */
 const tagLine = document.getElementById("tagline")
-
-/* 이미지 발리지 추가한 것 */
-const slideImage = document.createElement("img")
-let bannerSlides = document.querySelector(".banner-slides")
-bannerSlides.appendChild(slideImage)/* j'ajoute <img> sous banner-slides */
-slideImage.src = slides[currentSlideN].image
-slideImage.alt = `banner image ${currentSlideN +1}`
-
+const bannerSlides = document.querySelector(".banner-slides")
 const dots = document.querySelector('.dots')
+
 for (let i =0; i < slides.length; i++) {
 	const dot = document.createElement('div')
 	dot.className='dot'
@@ -54,27 +48,20 @@ function showSlides(slideN) {
 		currentSlideN = slideN  /* 현재 슬라이드는 슬라이드 넘버와 동일 */
 	}
 	
-
 	tagLine.innerHTML = slides[currentSlideN].tagLine /* 태그를 해당 슬라이드 넘버에 맞게 수정 해줌 */
-	bannerSlides.style.transform = `translateX (${-currentSlideN * 100}%`
-	/* 슬라이드가 바뀔때마다 이미지를 수평으로 이동시켜줌 
-	 ex) currentSlideN =2 ${-currentSlideN * 100}% = -200% */
 
 	const dots = document.querySelectorAll(".dot")/* HTML dot을 모두 선택  */ 
 	for (let i = 0; i < dots.length; i++) { 
-		dots[i].classList.remove('dot_selected'); /* 닷의 값을 지날때 클라스 dot_selected가 지워지는 코드  */
+		dots[i].classList.remove('dot_selected'); /* 모든 닷에서 dot_selected를 지움  */
 	  }
 
+	const slideImage = document.createElement("img")
 	slideImage.src = slides[currentSlideN].image /* 현재 슬라이드의 이미지 링크와 이미지 주석을 업데이트 해줌  */
 	slideImage.alt = `banner image ${currentSlideN +1}`
+	slideImage.classList.add('fade')
+	bannerSlides.innerHTML = ''
+	bannerSlides.appendChild(slideImage) /* ajoute <img> sous <div classe="banner-slides" */
 
-	/* add animatioin fade pour chaque passage de slide*/
-	const imgs = document.querySelectorAll('.banner-slides img')
-	for (let i = 0; i < imgs.length; i++) { 
-		imgs[i].classList.remove('fade'); /* 닷의 값을 지날때 클라스 dot_selected가 지워지는 코드  */
-	  }
-
-	imgs[currentSlideN].classList.add('fade')
 	dots[currentSlideN].classList.add('dot_selected')/* 닷의 현재슬라이드에 있을때 클라스 dot_selected가 추가됨   */
 }
 /* 왼쪽버튼 클릭 기능  */
@@ -84,3 +71,4 @@ arrowLeft.addEventListener('click', prevSlide)
 const arrowRight = document.querySelector(".arrow_right")
 arrowRight.addEventListener('click', nextSlide)
 
+showSlides(0)
