@@ -20,14 +20,13 @@ const slides = [
 
 /* 슬라이드 넘버 0에서 시작*/
 let currentSlideN = 0
-
 /* 테그 수정하려고 노드한 것 */
 const tagLine = document.getElementById("tagline")
 
 /* 이미지 발리지 추가한 것 */
 const slideImage = document.createElement("img")
 let bannerSlides = document.querySelector(".banner-slides")
-bannerSlides.appendChild(slideImage)
+bannerSlides.appendChild(slideImage)/* j'ajoute <img> sous banner-slides */
 slideImage.src = slides[currentSlideN].image
 slideImage.alt = `banner image ${currentSlideN +1}`
 
@@ -41,7 +40,6 @@ function prevSlide() {
 }
 /* 보여지는 슬라이드 이미지 */
 function showSlides(slideN) {
-	let i
 	if (slideN > slides.length) {
 		currentSlideN = 0  /* 슬라이드넘버가 3을 넘어가면 슬라이드 넘버를 0으로 돌려주는 기능  */
 	} else if (slideN < 0){
@@ -62,9 +60,9 @@ function showSlides(slideN) {
 
 	slideImage.src = slides[currentSlideN].image /* 현재 슬라이드의 이미지 링크와 이미지 주석을 업데이트 해줌  */
 	slideImage.alt = `banner image ${currentSlideN +1}`
-	
+
 	/* add animatioin fade pour chaque passage de slide*/
-	const addFade = dodument.querySelectorAll('.banner-slides img')
+	const addFade = document.querySelectorAll('.banner-slides img')
 	addFade.forEach(addFade => {
 		addFade.classList.add('fade')
 	})
