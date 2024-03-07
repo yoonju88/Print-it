@@ -18,7 +18,7 @@ const slides = [
 	}
 ]
 
-/* 슬라이드 넘버 */
+/* 슬라이드 넘버 0에서 시작*/
 let currentSlideN = 0
 
 /* 테그 수정하려고 노드한 것 */
@@ -52,7 +52,8 @@ function showSlides(slideN) {
 	
 	tagLine.innerHTML = slides[currentSlideN].tagLine /* 태그를 해당 슬라이드 넘버에 맞게 수정 해줌 */
 	bannerSlides.style.transform = 'translateX(${-currentSlideN * 100}%' 
-	/* 이미지를 엑스 방향으로 이동시켜줌  */
+	/* 슬라이드가 바뀔때마다 이미지를 수평으로 이동시켜줌 
+	 ex) currentSlideN =2 ${-currentSlideN * 100}% = -200% */
 
 	const dots = document.querySelectorAll(".dot")/* HTML dot을 모두 선택  */
 	for (let i = 0; i < slides.length; i++) { 
@@ -61,6 +62,13 @@ function showSlides(slideN) {
 
 	slideImage.src = slides[currentSlideN].image /* 현재 슬라이드의 이미지 링크와 이미지 주석을 업데이트 해줌  */
 	slideImage.alt = `banner image ${currentSlideN +1}`
+	
+	/* add animatioin fade pour chaque passage de slide*/
+	const addFade = dodument.querySelectorAll('.banner-slides img')
+	addFade.forEach(addFade => {
+		addFade.classList.add('fade')
+	})
+	
 	dots[currentSlideN].classList.add('dot_selected')/* 닷의 현재슬라이드에 있을때 클라스 dot_selected가 추가됨   */
 }
 /* 왼쪽버튼 클릭 기능  */
