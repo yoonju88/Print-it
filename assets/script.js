@@ -28,8 +28,19 @@ for (let i = 0; i < slides.length; i++) {
 	dot.className='dot'
 	dots.appendChild(dot)
 }
+
+
 // les éléments tout ce qu'on voit dans showslides
 function showSlides(slideN) {
+
+    if (slideN > slides.length -1) {
+		currentSlideN = 0 
+	} else if (slideN < 0){
+		currentSlideN = slides.length -1
+	} else {
+		currentSlideN = slideN
+	}
+
 	// tagLine qui change en fonction de current slide
 	tagLine.innerHTML = slides[currentSlideN].tagLine 
 
@@ -48,15 +59,8 @@ function showSlides(slideN) {
 	setTimeout(function () {
 		slideImage.classList.remove('fade')
 	}, 1000);
-
-	if (slideN > slides.length -1) {
-		currentSlideN = 0 
-	} else if (slideN < 0){
-		currentSlideN = slides.length -1
-	} else {
-		currentSlideN = slideN
-	}
 }
+
 // les fonctions qui font passer slide après et slide avant. 
 function nextSlide() {
 	showSlides(currentSlideN + 1 )
