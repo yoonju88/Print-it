@@ -127,14 +127,13 @@ header {
 
 .fade {
 	animation-name: fade;
-	animation-duration: 1.5s;
+	animation-duration: 1s;
   }
   
-  @keyframes fade {
+@keyframes fade {
 	from {opacity: .4;} 
 	to {opacity: 1;}
   }
-  
 
 /* Gestion des fleches du carrousel */
 #banner .arrow {
