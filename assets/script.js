@@ -17,58 +17,64 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-/* 슬라이드 넘버 0에서 시작*/
+// slide acutel est 0 
 let currentSlideN = 0
-/* 테그 수정하려고 노드한 것 */
+// récupére les éléments DOM
 const tagLine = document.getElementById("tagline")
 const bannerSlides = document.querySelector(".banner-slides")
 const dots = document.querySelector('.dots')
 
+// un boucle qui permet de créer les balises <div class="dot"> en fonction de nombre slides
 for (let i =0; i < slides.length; i++) {
 	const dot = document.createElement('div')
 	dot.className='dot'
 	dots.appendChild(dot)
 }
-/* 다음 이미지 */
+
+// les fonctions qui font passer slide après et slide avant. 
 function nextSlide() {
 	showSlides(currentSlideN + 1 )
 }
-/* 이전 이미지로 돌려주는 코드  */
+
 function prevSlide() {
 	showSlides(currentSlideN - 1 )
 }
-/* 보여지는 슬라이드 이미지 */
+// les éléments tout ce qu'on voit dans showslides
 function showSlides(slideN) {
 	
 	if (slideN > slides.length -1) {
-		currentSlideN = 0  /* 슬라이드넘버가 3을 넘어가면 슬라이드 넘버를 0으로 돌려주는 기능  */
+		currentSlideN = 0 
 	} else if (slideN < 0){
-		currentSlideN = slides.length /* 슬라이드넘버가 0보다 작으면 슬라이드 넘버를 3으로 돌려주는 기능  */
+		currentSlideN = slides.length -1
 	} else {
-		currentSlideN = slideN  /* 현재 슬라이드는 슬라이드 넘버와 동일 */
+		currentSlideN = slideN  
 	}
-	
-	tagLine.innerHTML = slides[currentSlideN].tagLine /* 태그를 해당 슬라이드 넘버에 맞게 수정 해줌 */
+	// tagLine qui change en fonction de current slide
+	tagLine.innerHTML = slides[currentSlideN].tagLine 
 
-	const dots = document.querySelectorAll(".dot")/* HTML dot을 모두 선택  */ 
+	//Pour ajouter et enlever la calsse "dot_selected" dans les balises <div class="dot">
+	const dots = document.querySelectorAll(".dot")
 	for (let i = 0; i < dots.length; i++) { 
-		dots[i].classList.remove('dot_selected'); /* 모든 닷에서 dot_selected를 지움  */
+		dots[i].classList.remove('dot_selected');
 	  }
 
-	const slideImage = document.createElement("img")
-	slideImage.src = slides[currentSlideN].image /* 현재 슬라이드의 이미지 링크와 이미지 주석을 업데이트 해줌  */
+	dots[currentSlideN].classList.add('dot_selected')
+
+	// Les images informations 
+	const slideImage = document.createElement("img") 
+	slideImage.src = slides[currentSlideN].image 
 	slideImage.alt = `banner image ${currentSlideN +1}`
 	slideImage.classList.add('fade')
 	bannerSlides.innerHTML = ''
-	bannerSlides.appendChild(slideImage) /* ajoute <img> sous <div classe="banner-slides" */
-
-	dots[currentSlideN].classList.add('dot_selected')/* 닷의 현재슬라이드에 있을때 클라스 dot_selected가 추가됨   */
+	bannerSlides.appendChild(slideImage) 
 }
-/* 왼쪽버튼 클릭 기능  */
+
+// récupérer les éléments du DOM pour les flèches
 const arrowLeft = document.querySelector('.arrow_left')
-arrowLeft.addEventListener('click', prevSlide)
-/* 오른쪽 버튼 클릭 기능  */
 const arrowRight = document.querySelector(".arrow_right")
+
+// ajouter Event 'click' pour les fléches 
+arrowLeft.addEventListener('click', prevSlide)
 arrowRight.addEventListener('click', nextSlide)
 
 showSlides(0)
