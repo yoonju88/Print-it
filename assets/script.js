@@ -17,41 +17,19 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-// slide acutel est 0 
 let currentSlideN = 0
-// récupére les éléments DOM
 const tagLine = document.getElementById("tagline")
 const slideImage = document.querySelector("#banner img")
 const dots = document.querySelector('.dots')
 
-
 // un boucle qui permet de créer les balises <div class="dot"> en fonction de nombre slides
-for (let i =0; i < slides.length; i++) {
+for (let i = 0; i < slides.length; i++) {
 	const dot = document.createElement('div')
 	dot.className='dot'
 	dots.appendChild(dot)
 }
-
-// les fonctions qui font passer slide après et slide avant. 
-function nextSlide() {
-	showSlides(currentSlideN + 1 )
-}
-
-function prevSlide() {
-	showSlides(currentSlideN - 1 )
-}
-
 // les éléments tout ce qu'on voit dans showslides
 function showSlides(slideN) {
-	
-	if (slideN > slides.length -1) {
-		currentSlideN = 0 
-	} else if (slideN < 0){
-		currentSlideN = slides.length -1
-	} else {
-		currentSlideN = slideN
-	}
-
 	// tagLine qui change en fonction de current slide
 	tagLine.innerHTML = slides[currentSlideN].tagLine 
 
@@ -70,6 +48,22 @@ function showSlides(slideN) {
 	setTimeout(function () {
 		slideImage.classList.remove('fade')
 	}, 1000);
+
+	if (slideN > slides.length -1) {
+		currentSlideN = 0 
+	} else if (slideN < 0){
+		currentSlideN = slides.length -1
+	} else {
+		currentSlideN = slideN
+	}
+}
+// les fonctions qui font passer slide après et slide avant. 
+function nextSlide() {
+	showSlides(currentSlideN + 1 )
+}
+
+function prevSlide() {
+	showSlides(currentSlideN - 1 )
 }
 
 // récupérer les éléments du DOM pour les flèches
