@@ -21,14 +21,13 @@ const slides = [
 let currentSlideN = 0
 // récupére les éléments DOM
 const tagLine = document.getElementById("tagline")
-const slideImage = document.querySelector(".banner-img")
+const slideImage = document.querySelector("#banner img")
 const dots = document.querySelector('.dots')
 
 
 // un boucle qui permet de créer les balises <div class="dot"> en fonction de nombre slides
 for (let i =0; i < slides.length; i++) {
 	const dot = document.createElement('div')
-	const dotSelected = document.createElement('div')
 	dot.className='dot'
 	dots.appendChild(dot)
 }
@@ -41,6 +40,7 @@ function nextSlide() {
 function prevSlide() {
 	showSlides(currentSlideN - 1 )
 }
+
 // les éléments tout ce qu'on voit dans showslides
 function showSlides(slideN) {
 	
@@ -60,13 +60,16 @@ function showSlides(slideN) {
 	for (let i = 0; i < dots.length; i++) { 
 		dots[i].classList.remove('dot_selected');
 	  }
-
 	dots[currentSlideN].classList.add('dot_selected')
 
 	// Les images informations 
 	slideImage.src = slides[currentSlideN].image 
 	slideImage.alt = `banner image ${currentSlideN +1}`
-	slideImage.classList.add('fade') 
+	slideImage.classList.add('fade')
+
+	setTimeout(function () {
+		slideImage.classList.remove('fade')
+	}, 1000);
 }
 
 // récupérer les éléments du DOM pour les flèches
