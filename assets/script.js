@@ -19,7 +19,7 @@ const slides = [
 ]
 let currentSlideN = 0
 const tagLine = document.getElementById("tagline")
-const slideImage = document.querySelector("#banner img")
+const slideImage = document.querySelector(".banner-img")
 const dots = document.querySelector('.dots')
 
 // un boucle qui permet de créer les balises <div class="dot"> en fonction de nombre slides
@@ -29,6 +29,7 @@ for (let i = 0; i < slides.length; i++) {
 	dots.appendChild(dot)
 }
 
+let cancelTimeOut = null
 
 // les éléments tout ce qu'on voit dans showslides
 function showSlides(slideN) {
@@ -56,8 +57,11 @@ function showSlides(slideN) {
 	slideImage.alt = `banner image ${currentSlideN +1}`
 	slideImage.classList.add('fade')
 
-	setTimeout(function () {
-		slideImage.classList.remove('fade')
+	if (cancelTimeOut) {
+		clearTimeout (cancelTimeOut)
+	}
+	cancelTimeOut = setTimeout(function () {
+		slideImage.classList.remove('fade') 
 	}, 1000);
 }
 
@@ -75,7 +79,7 @@ const arrowLeft = document.querySelector('.arrow_left')
 const arrowRight = document.querySelector(".arrow_right")
 
 // ajouter Event 'click' pour les fléches 
-arrowLeft.addEventListener('click', prevSlide)
+arrowLeft.addEventListener('click', prevSlide) 
 arrowRight.addEventListener('click', nextSlide)
 
-showSlides(0)
+showSlides(currentSlideN)
