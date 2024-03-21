@@ -28,9 +28,7 @@ for (let i = 0; i < slides.length; i++) {
 	dot.className='dot'
 	dots.appendChild(dot)
 }
-
 let cancelTimeOut = null
-
 // les éléments tout ce qu'on voit dans showslides
 function showSlides(slideN) {
 
@@ -46,11 +44,11 @@ function showSlides(slideN) {
 	tagLine.innerHTML = slides[currentSlideN].tagLine 
 
 	//Pour ajouter et enlever la calsse "dot_selected" dans les balises <div class="dot">
-	const dots = document.querySelectorAll(".dot")
-	for (let i = 0; i < dots.length; i++) { 
-		dots[i].classList.remove('dot_selected');
+	const dotAll = document.querySelectorAll(".dot")
+	for (let i = 0; i < dotAll.length; i++) { 
+		dotAll[i].classList.remove('dot_selected');
 	  }
-	dots[currentSlideN].classList.add('dot_selected')
+	dotAll[currentSlideN].classList.add('dot_selected')
 
 	// Les images informations 
 	slideImage.src = slides[currentSlideN].image 
