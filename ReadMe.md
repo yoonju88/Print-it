@@ -1,1 +1,3 @@
-# Print-It WebSite v.1
+# Print-It 
+
+Dans ce projet, j’ai utilisé JavaScript pour dynamiser le site web statique d’une imprimerie en ajoutant un carrousel interactif. J’ai commencé par apprendre les bases de JavaScript et comment il peut rendre un site web plus engageant. J’ai mis à jour le code HTML existant pour intégrer le carrousel, ce qui m’a permis de comprendre comment JavaScript interagit avec HTML et CSS pour créer des éléments interactifs. J’ai utilisé Visual Studio Code pour le développement et GitHub pour la gestion de version. Ce projet m’a donné une expérience pratique précieuse en programmation JavaScript.”
